@@ -1,3 +1,4 @@
+require "pry"
 # Write your code here!
 def game_hash
    {
@@ -119,9 +120,35 @@ def game_hash
 }
 end 
 
-def num_points_scored = {}
-  
+
+
+def num_points_scored(player_name)
+  array= []
+  game_hash.each do |location,team_data|
+    team_data.each do |attribute, value|
+      if attribute == :players
+        value.each do |person, data|
+          data.each do |a, b|
+            if person == player_name && a ==:points
+              array.push(b) 
+            end 
+     
+        end 
+      end 
+    end 
+  end 
+end 
+  return array[0]
+  binding.pry
+end   
+
+
+
+
+
   # shoe_size = {}
+  
+  #team_colors = {}
   
   # team_names = {}
   
