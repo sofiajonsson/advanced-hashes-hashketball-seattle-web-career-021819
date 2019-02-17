@@ -120,45 +120,79 @@ def game_hash
 }
 end 
 
-
-
 def num_points_scored(player_name)
-  array= []
-  game_hash.each do |location,team_data|
-    team_data.each do |attribute, value|
-      if attribute == :players
-        value.each do |person, data|
-          data.each do |a, b|
-            if person == player_name && a ==:points
-              array.push(b) 
-            end 
-     
-        end 
-      end 
-    end 
-  end 
-end 
-  return array[0]
-  binding.pry
-end   
 
+  game_hash.values.each do |team|  
+    team[:players].each do |player|
+      return player[:points] if player.has_value?(player_name)
+    end
+  end
 
+end
+ 
+  def shoe_size(player_name)
+  game_hash.values.each do |team_info|  
+    team_info[:players].each do |player|
+      return player[:shoe] if player.has_value?(player_name)
+    end
+  end
 
+end  
+ 
 
-
-  # shoe_size = {}
   
-  #team_colors = {}
+def team_colors(team)
+  array = []
+  game_hash.each do |keys, values|
+    values.each do |labels, data|
+      if data == team
+        array << game_hash[keys][:colors]
+      end
+    end
+  end
+  array.flatten
+end
   
-  # team_names = {}
+  def team_names
+  array = []
+  game_hash.each do |keys, values|
+    values.each do |labels, data|
+      if labels == :team_name
+        array << data
+      end
+    end
+  end
+  array
+end
+
+ def player_numbers(team)
+  array = []
+  if game_hash[:home][:team_name] == team
+    game_hash[:home][:players].each do |name, stats|
+      stats.each do |stat_label, stat_value|
+        if stat_label == :number
+          array << stat_value
+        end
+      end
+    end
+  else 
+    game_hash[:away][:players].each do |name, stats|
+      stats.each do |stat_label, stat_value|
+        if stat_label == :number
+          array << stat_value
+        end
+      end
+    end
+  end
+  array
+end
   
-  # player_numbers = {}
-  
-  # players_stats = {}
+  #def player_stats(name)
+ 
+
   
   # big_shoe_rebounds = {}
   
-
 
 
 
