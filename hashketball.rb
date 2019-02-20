@@ -1,3 +1,5 @@
+require 'pry'
+
 def game_hash
 	games = {
 		:home => {
@@ -14,7 +16,7 @@ def game_hash
 								:blocks => 1, 
 								:slam_dunks => 1 },
 
- 								{:player_name => "Reggie Evans",
+								{:player_name => "Reggie Evans",
 								:number => 30,
 								:shoe => 14,
 								:points => 12, 
@@ -24,7 +26,7 @@ def game_hash
 								:blocks => 12, 
 								:slam_dunks => 7},
 
- 								{:player_name => "Brook Lopez",
+								{:player_name => "Brook Lopez",
 								:number => 11,
 								:shoe => 17,
 								:points => 17, 
@@ -34,7 +36,7 @@ def game_hash
 								:blocks => 1, 
 								:slam_dunks => 15},
 
- 								{:player_name => "Mason Plumlee",
+								{:player_name => "Mason Plumlee",
 								:number => 1,
 								:shoe => 19,
 								:points => 26, 
@@ -44,7 +46,7 @@ def game_hash
 								:blocks => 8, 
 								:slam_dunks => 5},
 
- 								{:player_name => "Jason Terry",
+								{:player_name => "Jason Terry",
 								:number => 31,
 								:shoe => 15,
 								:points => 19, 
@@ -68,7 +70,7 @@ def game_hash
 								:blocks => 7, 
 								:slam_dunks => 2},
 
- 								{:player_name => "Bismak Biyombo",
+								{:player_name => "Bismak Biyombo",
 								:number => 0,
 								:shoe => 16,
 								:points => 12, 
@@ -78,7 +80,7 @@ def game_hash
 								:blocks => 15, 
 								:slam_dunks => 10},
 
- 								{:player_name => "DeSagna Diop",
+								{:player_name => "DeSagna Diop",
 								:number => 2,
 								:shoe => 14,
 								:points => 24, 
@@ -88,7 +90,7 @@ def game_hash
 								:blocks => 5, 
 								:slam_dunks => 5},
 
- 								{:player_name => "Ben Gordon",
+								{:player_name => "Ben Gordon",
 								:number => 8,
 								:shoe => 15,
 								:points => 33, 
@@ -98,7 +100,7 @@ def game_hash
 								:blocks => 1, 
 								:slam_dunks => 0 },
 
- 								{:player_name => "Brendan Haywood",
+								{:player_name => "Brendan Haywood",
 								:number => 33,
 								:shoe => 15,
 								:points => 6, 
@@ -109,7 +111,7 @@ def game_hash
 								:slam_dunks => 12}]
 		}
 
- 	}	
+	}	
 	return games
 end
 
@@ -131,6 +133,8 @@ end
   end
 
 end  
+
+
  
 
   
@@ -158,36 +162,17 @@ end
   array
 end
 
-
-
-# def player_numbers(team_name)
-#   array = []
-#   game_hash.each do |keys, values|
-#     values.each do |labels, data|
-#       if data == [:players]
-#         |
-#         array << game_hash[keys][:number]
-#       end
-#     end
-#   end
-#   array
-# end
-def player_numbers (team_name)
-  player_numbers_list = []
-  game_hash.each do |team, team_details_hash|
-    if team_details_hash[:name] == team_name
-      team_details_hash[:players].each do |player|
-        player.each do |key, value|
-          if key == :number 
-            player_numbers_list << value
-          end
-        end
-      end
+def player_numbers(team_name)
+array = []
+game_hash.each do |loction, team_data|
+ if team_data[:team_name] == team_name
+    team_data[:players].map do |player|
+      array << player[:number]
     end
   end
-player_numbers_list.flatten
-end 
-
+  end
+array
+end
  
 def player_stats(player_name)
 	game_hash.each do |location, team_data|
@@ -200,8 +185,21 @@ def player_stats(player_name)
 		end
 	end
 end
-  
 
+def big_shoe_rebounds 
+  biggest_shoe = 0
+  rebounds = 0
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |player|
+      if player[:shoe] > biggest_shoe
+        biggest_shoe = player[:shoe]
+        rebounds = player[:rebounds]
+      end
+    end
+  end
+  rebounds
+end
+  
 
 
 
